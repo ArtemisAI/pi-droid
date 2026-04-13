@@ -9,6 +9,9 @@ dist/
 *.png
 view.xml
 
+# Social media assets (upload manually to GitHub Settings)
+social-preview.*
+
 # Secrets and key material
 *.pem
 *.key
