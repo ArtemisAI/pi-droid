@@ -23,8 +23,10 @@
     "LICENSE"
   ],
   "keywords": [
+    "pi",
     "pi-package",
     "pi-extension",
+    "pi-coding-agent",
     "android",
     "adb",
     "mobile-automation",
@@ -33,12 +35,16 @@
     "pi-agent",
     "llm-tools",
     "ai-agent",
+    "ai",
     "uiautomator",
     "screenshot",
     "android-testing",
     "typescript",
     "plugin-system"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "pi": {
     "extensions": [
       "./dist/index.js"
