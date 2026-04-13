@@ -16,6 +16,9 @@ view.xml
 *.jks
 *.keystore
 
+# Auth tokens
+.npmrc
+
 # Secrets and runtime data
 .env
 .env.*
