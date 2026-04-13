@@ -1,7 +1,7 @@
 {
   "name": "@artemisai/pi-droid",
-  "version": "0.1.0",
-  "description": "36 LLM tools for AI agents to control Android devices via ADB — annotated screenshots, plugin system, multi-device support",
+  "version": "0.1.1",
+  "description": "Android phone control for pi-agent — 36 tools to see, touch, and automate any device via ADB",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -39,8 +39,12 @@
     "uiautomator",
     "screenshot",
     "android-testing",
+    "testing",
     "typescript",
-    "plugin-system"
+    "plugin-system",
+    "phone",
+    "mobile",
+    "ui-automation"
   ],
   "publishConfig": {
     "access": "public"
