@@ -1,6 +1,6 @@
 {
   "name": "@artemisai/pi-droid",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Android phone control for pi-agent — 36 tools to see, touch, and automate any device via ADB",
   "type": "module",
   "main": "dist/index.js",

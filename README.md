@@ -1,16 +1,19 @@
 # Pi-Droid
 
+![Pi-Droid](./banner.jpeg)
+
 **Give your AI agent hands on an Android phone.**
 
 ```bash
 pi install npm:@artemisai/pi-droid
 ```
 
-Pi-Droid is a [pi-agent](https://github.com/badlogic/pi-mono) extension that lets LLM-based agents see, touch, and control Android devices through ADB. Annotated screenshots give the agent a numbered element index it can use to tap, swipe, and type — no pixel coordinates to guess, no screen-size dependencies.
+Pi-Droid is a [pi-agent](https://github.com/badlogic/pi-mono) extension that gives AI agents direct, real-time control over Android devices via ADB. Annotated screenshots with numbered element indices let the agent tap, swipe, and type without guessing pixel coordinates — works on any screen size, any device.
 
 [![npm version](https://img.shields.io/npm/v/@artemisai/pi-droid)](https://www.npmjs.com/package/@artemisai/pi-droid)
 [![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 [![tests](https://img.shields.io/badge/tests-473%2B%20passing-brightgreen)]()
+[![latest release](https://img.shields.io/github/v/release/ArtemisAI/pi-droid)](https://github.com/ArtemisAI/pi-droid/releases/latest)
 
 ---
 
