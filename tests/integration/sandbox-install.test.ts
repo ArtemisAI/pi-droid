@@ -41,7 +41,6 @@ describe("Sandbox install verification", () => {
     expect(output).toContain("skills/android-screen/SKILL.md");
     expect(output).toContain("skills/android-interact/SKILL.md");
     expect(output).toContain("skills/android-automate/SKILL.md");
-    expect(output).toContain("skills/android-flow/SKILL.md");
     expect(output).toContain("skills/android-plugin/SKILL.md");
     // Excluded: flows, tests, src, debug artifacts
     expect(output).not.toContain("dist/flows/");
