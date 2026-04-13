@@ -10,7 +10,7 @@ Open an issue at [github.com/ArtemisAI/pi-droid/issues](https://github.com/Artem
 - Steps to reproduce the issue
 - Expected vs. actual behavior
 - Device model and Android version (if device-specific)
-- Pi-Droid version (`npm ls pi-droid`)
+- Pi-Droid version (`npm ls @artemisai/pi-droid`)
 
 ## Suggesting Features
 
@@ -18,7 +18,7 @@ Feature requests are welcome. Open an issue with the `enhancement` label and des
 
 - The problem you are trying to solve
 - Your proposed solution
-- Which tier the feature belongs to (Core Tool, Flow Script, or Plugin -- see CLAUDE.md for tier definitions)
+- Which tier the feature belongs to (Core Tool, Flow Script, or Plugin -- see [ARCHITECTURE.md](./ARCHITECTURE.md) for tier definitions)
 
 ## Development Setup
 
@@ -60,7 +60,7 @@ All new `src/adb/` modules must have a corresponding test file in `tests/`. Flow
 ## Pull Request Process
 
 1. Fork the repository and create a feature branch from `main`.
-2. Make your changes, following the coding rules in `CLAUDE.md`.
+2. Make your changes, following the coding rules in [CONTRIBUTING.md](#code-style).
 3. Add or update tests for any new `src/adb/` modules.
 4. Run the full test suite: `npm test`
 5. Run the build: `npm run build`

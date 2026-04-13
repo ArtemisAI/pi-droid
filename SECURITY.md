@@ -42,4 +42,4 @@ Plugins are loaded dynamically from npm packages or local paths. A plugin can ex
 
 - Never commit credentials, API keys, device serials, or account data to the repository
 - Use environment variables or gitignored configuration files for sensitive data
-- See the credentials section in [CLAUDE.md](./CLAUDE.md) for the full policy
+- Never store credentials in `config/` or `data/` tracked files -- use `config/local.json` or `.env` (both gitignored)

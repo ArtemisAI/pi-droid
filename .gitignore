@@ -9,6 +9,13 @@ dist/
 *.png
 view.xml
 
+# Secrets and key material
+*.pem
+*.key
+*.p12
+*.jks
+*.keystore
+
 # Secrets and runtime data
 .env
 .env.*

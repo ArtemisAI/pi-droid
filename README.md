@@ -1,29 +1,30 @@
 # Pi-Droid
 
-![Pi-Droid banner](./banner.jpeg)
+Give your AI agent hands on an Android phone.
 
-Android automation extension for [pi-agent](https://github.com/badlogic/pi-mono). Gives AI agents direct control over Android devices via ADB.
+Pi-Droid is a [pi-agent](https://github.com/badlogic/pi-mono) extension that lets LLM-based agents see, touch, and control Android devices through ADB. Annotated screenshots give the agent a numbered element index it can use to tap, swipe, and type — no pixel coordinates to guess, no screen-size dependencies.
 
 [![npm version](https://img.shields.io/npm/v/@artemisai/pi-droid)](https://www.npmjs.com/package/@artemisai/pi-droid)
-[![license](https://img.shields.io/npm/l/@artemisai/pi-droid)](./LICENSE)
-[![tests](https://img.shields.io/badge/tests-580%2B%20passing-brightgreen)]()
-[![TypeScript](https://img.shields.io/badge/TypeScript-ESM-blue)]()
+[![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
+[![tests](https://img.shields.io/badge/tests-473%2B%20passing-brightgreen)]()
 
 ---
 
-## Features
+## What it does
 
-- **36 LLM-visible tools** for full Android device control -- perception, input, navigation, system management, automation, and plugin execution
-- **Annotated screenshots** with numbered element indices for precise, resolution-independent interaction
-- **Plugin system** for app-specific automation -- extend `CliPlugin` or implement `PiDroidPlugin`, distribute as npm packages
-- **4 skill definitions** that scope tool sets for focused agent behavior
-- **Deterministic input routing** for common one-tool actions without LLM reasoning overhead
-- **Multi-device support** with device registry and serial-based targeting
-- **Gesture macros** for recording, saving, and replaying complex touch sequences
-- **Screen lock management** -- query, set, and clear PIN/pattern locks programmatically
-- **WiFi ADB** for wireless device connections
-- **OCR fallback** via Tesseract for reading text in WebViews and dynamic content
-- **Full public API** -- import ADB primitives directly for building custom automation
+| Category | Tools | Highlights |
+|----------|-------|------------|
+| **See** | 6 perception tools | Annotated screenshots with numbered indices, raw UI tree, OCR fallback |
+| **Touch** | 5 input tools | Tap by text/ID/coords, type with clear-first, swipe, scroll, key events |
+| **Navigate** | 3 app tools | Launch/stop apps, wait for elements, wait for activities |
+| **System** | 6 system tools | Battery, settings, processes, logcat, shell, APK install |
+| **Manage** | 3 device tools | Multi-device registry, preflight checks, WiFi ADB |
+| **Lock** | 4 lock tools | Query/set/clear PIN and pattern locks |
+| **Record** | 2 recording tools | Screen recording, gesture macro record/save/replay |
+| **Automate** | 3 automation tools | Wake+unlock, find-and-tap with scrolling, scroll-until-found |
+| **Extend** | 4 plugin tools | Discover capabilities, run plugin actions, health check, heartbeat cycle |
+
+**36 tools total**, organized into 4 skills that scope tool sets for focused agent behavior.
 
 ---
 
@@ -32,16 +33,14 @@ Android automation extension for [pi-agent](https://github.com/badlogic/pi-mono)
 | Requirement | Notes |
 |-------------|-------|
 | **Node.js** >= 18 | ESM support required |
-| **ADB** on PATH | Android Debug Bridge (`adb devices` should list your device) |
-| **Android device** | USB debugging enabled, connected via USB or WiFi |
-| **[ADBKeyboard](https://github.com/nicetab/ADBKeyboard)** | Required for Unicode text input via `android_type` |
+| **ADB** on PATH | `adb devices` should list your device |
+| **Android device** | USB debugging enabled, USB or WiFi connected |
+| **[ADBKeyboard](https://github.com/senzhk/ADBKeyboard)** | Required for Unicode text input via `android_type` |
 | **Tesseract OCR** *(optional)* | Only needed for `android_ocr` tool |
 
 ---
 
 ## Installation
-
-Install as a pi-agent extension:
 
 ```bash
 pi install npm:@artemisai/pi-droid
@@ -53,31 +52,20 @@ Set your device serial (optional if only one device is connected):
 export ANDROID_SERIAL=your_device_serial
 ```
 
----
-
-## Quick Start
-
-### As a pi-agent extension (recommended)
+### Verify
 
 ```bash
-pi install npm:@artemisai/pi-droid
+npx tsx run.mts screen
 ```
 
-Once installed, all 36 tools and 4 skills are available to the agent automatically. Start a pi session and ask it to interact with your Android device.
-
-### Development mode
+### Development
 
 ```bash
 git clone https://github.com/ArtemisAI/pi-droid.git
 cd pi-droid
 npm install
-pi -e ./src/index.ts
-```
-
-### Verify device connection
-
-```bash
-npx tsx run.mts screen
+npm run build
+npm test
 ```
 
 ---
@@ -88,8 +76,8 @@ npx tsx run.mts screen
 
 | Tool | Description |
 |------|-------------|
-| `android_look` | Annotated screenshot with numbered element index -- primary perception tool |
-| `android_screenshot` | Raw screenshot -- use for failure diagnosis only |
+| `android_look` | Annotated screenshot with numbered element index — primary perception tool |
+| `android_screenshot` | Raw screenshot — use for failure diagnosis only |
 | `android_ui_dump` | Raw UI tree XML for full element hierarchy |
 | `android_ocr` | Tesseract OCR on current screen or saved screenshot |
 | `android_observe` | Continuous screen state observation |
@@ -152,7 +140,7 @@ npx tsx run.mts screen
 
 | Tool | Description |
 |------|-------------|
-| `android_ensure_ready` | Wake screen, unlock, dismiss overlays -- call before any automation |
+| `android_ensure_ready` | Wake screen, unlock, dismiss overlays — call before any automation |
 | `android_find_and_tap` | Search UI tree for element and tap it; retries with scrolling |
 | `android_scroll_find` | Scroll until an element appears, then return it |
 
@@ -244,50 +232,6 @@ Environment variables:
 
 ---
 
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Compile TypeScript
-npm run build
-
-# Type-check without emitting
-npm run lint
-
-# Run all tests (580+)
-npm test
-
-# Run unit tests only
-npm run test:unit
-
-# Run integration tests
-npm run test:integration
-
-# Watch mode
-npm run test:watch
-
-# Development mode (load as pi extension)
-npm run dev
-```
-
-### Project structure
-
-```
-src/
-  index.ts          Extension entry point
-  adb/              ADB primitives (app-agnostic, 28 modules)
-  tools/            LLM tool registrations
-  plugins/          Plugin system (loader, CLI base class, marketplace)
-  notifications/    Notification channels and approval queues
-skills/             Skill definitions (scoped tool sets)
-tests/              580+ tests mirroring src/ structure
-config/             Default configuration
-```
-
----
-
 ## Programmatic Usage
 
 Pi-Droid exports its full ADB layer for use in custom automation scripts, external plugins, or standalone tools:
@@ -337,11 +281,47 @@ const result = await adbShell("dumpsys battery");
 
 ---
 
+## Development
+
+```bash
+npm install            # Install dependencies
+npm run build          # Compile TypeScript
+npm run lint           # Type-check without emitting
+npm test               # Run all tests (473+)
+npm run test:unit      # Unit tests only (mocked ADB)
+npm run test:ci        # CI-safe subset (unit + sandbox integration)
+npm run test:integration # All integration tests
+npm run test:device    # Full suite including device E2E
+npm run dev            # Development mode (load as pi extension)
+```
+
+### Project structure
+
+```
+src/
+  index.ts          Extension entry point
+  adb/              ADB primitives (app-agnostic, 28 modules)
+  tools/            LLM tool registrations
+  plugins/          Plugin system (loader, CLI base class, marketplace)
+  notifications/    Notification channels and approval queues
+skills/             Skill definitions (scoped tool sets)
+tests/              473+ tests mirroring src/ structure
+config/             Default configuration
+```
+
+---
+
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for development guidelines, coding standards, and the PR checklist.
 
----
+## Security
+
+See [SECURITY.md](./SECURITY.md) for vulnerability reporting and security considerations.
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for release history.
 
 ## License
 

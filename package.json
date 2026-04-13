@@ -1,7 +1,7 @@
 {
   "name": "@artemisai/pi-droid",
   "version": "0.1.0",
-  "description": "Android automation extension for pi-agent — ADB tools, plugin system, and device control for AI agents",
+  "description": "36 LLM tools for AI agents to control Android devices via ADB — annotated screenshots, plugin system, multi-device support",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,7 +30,14 @@
     "mobile-automation",
     "device-automation",
     "pi-droid",
-    "pi-agent"
+    "pi-agent",
+    "llm-tools",
+    "ai-agent",
+    "uiautomator",
+    "screenshot",
+    "android-testing",
+    "typescript",
+    "plugin-system"
   ],
   "pi": {
     "extensions": [
@@ -49,6 +56,7 @@
     "test:watch": "vitest",
     "test:unit": "vitest run tests/adb/ tests/plugins/ tests/notifications/ tests/tools/",
     "test:ci": "vitest run tests/adb/ tests/plugins/ tests/notifications/ tests/tools/ tests/integration/extension-load.test.ts tests/integration/sandbox-install.test.ts",
+    "test:integration": "vitest run tests/integration/",
     "test:device": "vitest run tests/integration/device-e2e.test.ts tests/integration/agent-device.test.ts",
     "prepublishOnly": "npm run build && npm run test:ci"
   },
@@ -81,6 +89,7 @@
     "node": ">=20"
   },
   "author": "ArtemisAI",
+  "funding": "https://github.com/sponsors/ArtemisAI",
   "license": "MIT",
   "private": false
 }
