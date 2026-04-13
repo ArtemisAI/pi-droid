@@ -1,0 +1,10 @@
+{
+  "adb": {
+    "serial": ""
+  },
+  "plugins": {},
+  "routing": {
+    "enabled": true,
+    "file": "config/routes.json"
+  }
+}

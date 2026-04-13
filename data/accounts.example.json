@@ -1,0 +1,24 @@
+{
+  "_meta": {
+    "purpose": "Account tracking for automated provisioning flows",
+    "note": "Copy to accounts.json (gitignored) and fill in real values. Never commit accounts.json.",
+    "path_override": "Set ACCOUNTS_JSON env var to use a different file location"
+  },
+  "accounts": [
+    {
+      "id": "example-1",
+      "google": {
+        "email": "user@gmail.com",
+        "first_name": "First",
+        "password": "REPLACE_WITH_PASSWORD",
+        "status": "pending",
+        "recovery_address": null
+      },
+      "ollama": {
+        "status": "pending",
+        "ssh_key_name": "key-name",
+        "ssh_key": "ssh-ed25519 AAAA..."
+      }
+    }
+  ]
+}
