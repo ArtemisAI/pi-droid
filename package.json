@@ -1,0 +1,86 @@
+{
+  "name": "@artemisai/pi-droid",
+  "version": "0.1.0",
+  "description": "Android automation extension for pi-agent — ADB tools, plugin system, and device control for AI agents",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/index.*",
+    "dist/adb/**",
+    "dist/plugins/**",
+    "dist/notifications/**",
+    "dist/tools/**",
+    "skills",
+    "config/default.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "android",
+    "adb",
+    "mobile-automation",
+    "device-automation",
+    "pi-droid",
+    "pi-agent"
+  ],
+  "pi": {
+    "extensions": [
+      "./dist/index.js"
+    ],
+    "skills": [
+      "./skills"
+    ]
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
+    "lint": "tsc --noEmit",
+    "dev": "pi -e ./src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:unit": "vitest run tests/adb/ tests/plugins/ tests/notifications/ tests/tools/",
+    "test:ci": "vitest run tests/adb/ tests/plugins/ tests/notifications/ tests/tools/ tests/integration/extension-load.test.ts tests/integration/sandbox-install.test.ts",
+    "test:device": "vitest run tests/integration/device-e2e.test.ts tests/integration/agent-device.test.ts",
+    "prepublishOnly": "npm run build && npm run test:ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArtemisAI/pi-droid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ArtemisAI/pi-droid/issues"
+  },
+  "homepage": "https://github.com/ArtemisAI/pi-droid#readme",
+  "peerDependencies": {
+    "@mariozechner/pi-agent-core": "*",
+    "@mariozechner/pi-ai": "*",
+    "@mariozechner/pi-coding-agent": "*",
+    "@sinclair/typebox": "*"
+  },
+  "devDependencies": {
+    "@marcfargas/pi-test-harness": "^0.5.0",
+    "@mariozechner/pi-agent-core": "^0.66.0",
+    "@mariozechner/pi-ai": "^0.66.0",
+    "@mariozechner/pi-coding-agent": "^0.66.0",
+    "@sinclair/typebox": "^0.34.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.6.0",
+    "vitest": "^3.1.1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "author": "ArtemisAI",
+  "license": "MIT",
+  "private": false
+}

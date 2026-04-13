@@ -1,0 +1,18 @@
+node_modules/
+dist/
+*.js
+*.d.ts
+*.js.map
+!src/**/*.ts
+
+# Debug artifacts
+*.png
+view.xml
+
+# Secrets and runtime data
+.env
+.env.*
+data/accounts.json
+data/*.json
+!data/accounts.example.json
+config/local.json
