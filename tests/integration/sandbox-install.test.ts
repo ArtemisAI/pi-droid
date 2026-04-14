@@ -1,7 +1,7 @@
 /**
  * Integration test: sandbox install verification.
  *
- * Simulates `pi install npm:@artemisai/pi-droid` by running npm pack,
+ * Simulates `pi install pi-droid` by running npm pack,
  * installing into a sandbox, and verifying the package installs cleanly.
  *
  * Note: The pi extension loader discovers extensions via its own internal
@@ -68,14 +68,14 @@ describe("Sandbox install verification", () => {
         name: "test-sandbox",
         private: true,
         type: "module",
-        dependencies: { "@artemisai/pi-droid": `file:./${tarball}` },
+        dependencies: { "pi-droid": `file:./${tarball}` },
       }));
 
       // Install
       execSync("npm install", { cwd: sandbox, stdio: "pipe" });
 
       // Verify installed
-      const pkgDir = join(sandbox, "node_modules/@artemisai/pi-droid");
+      const pkgDir = join(sandbox, "node_modules/pi-droid");
       expect(existsSync(pkgDir)).toBe(true);
       expect(existsSync(join(pkgDir, "dist/index.js"))).toBe(true);
       expect(existsSync(join(pkgDir, "dist/index.d.ts"))).toBe(true);

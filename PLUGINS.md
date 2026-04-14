@@ -22,7 +22,7 @@ directory with its own `package.json` and `tsconfig.json`.
 
 ```typescript
 // my-plugin/src/myapp.ts
-import { CliPlugin, type CommandMapping, type PluginCapability } from "@artemisai/pi-droid";
+import { CliPlugin, type CommandMapping, type PluginCapability } from "pi-droid";
 
 const CAPABILITIES: PluginCapability[] = [
   {

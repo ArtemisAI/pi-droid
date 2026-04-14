@@ -5,12 +5,12 @@
 **Give your AI agent hands on an Android phone.**
 
 ```bash
-pi install npm:@artemisai/pi-droid
+pi install pi-droid
 ```
 
 Pi-Droid is a [pi-agent](https://github.com/badlogic/pi-mono) extension that gives AI agents direct, real-time control over Android devices via ADB. Annotated screenshots with numbered element indices let the agent tap, swipe, and type without guessing pixel coordinates — works on any screen size, any device.
 
-[![npm version](https://img.shields.io/npm/v/@artemisai/pi-droid)](https://www.npmjs.com/package/@artemisai/pi-droid)
+[![npm version](https://img.shields.io/npm/v/pi-droid)](https://www.npmjs.com/package/pi-droid)
 [![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 [![tests](https://img.shields.io/badge/tests-473%2B%20passing-brightgreen)]()
 [![latest release](https://img.shields.io/github/v/release/ArtemisAI/pi-droid)](https://github.com/ArtemisAI/pi-droid/releases/latest)
@@ -50,7 +50,7 @@ Pi-Droid is a [pi-agent](https://github.com/badlogic/pi-mono) extension that giv
 ## Installation
 
 ```bash
-pi install npm:@artemisai/pi-droid
+pi install pi-droid
 ```
 
 Set your device serial (optional if only one device is connected):
@@ -184,7 +184,7 @@ Pi-Droid's plugin system lets you add app-specific automation behind a standard 
 Extend `CliPlugin` for CLI-backed apps, or implement `PiDroidPlugin` for full control:
 
 ```typescript
-import { CliPlugin } from "@artemisai/pi-droid";
+import { CliPlugin } from "pi-droid";
 
 export class WeatherPlugin extends CliPlugin {
   name = "weather";
@@ -254,7 +254,7 @@ import {
   ensureReady, findAndTap, scrollToFind,
   getBatteryInfo, getDeviceInfo,
   adbShell,
-} from "@artemisai/pi-droid";
+} from "pi-droid";
 
 // Connect to a device
 const device = await Device.connect(process.env.ANDROID_SERIAL);

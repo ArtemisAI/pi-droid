@@ -10,7 +10,7 @@ Open an issue at [github.com/ArtemisAI/pi-droid/issues](https://github.com/Artem
 - Steps to reproduce the issue
 - Expected vs. actual behavior
 - Device model and Android version (if device-specific)
-- Pi-Droid version (`npm ls @artemisai/pi-droid`)
+- Pi-Droid version (`npm ls pi-droid`)
 
 ## Suggesting Features
 
