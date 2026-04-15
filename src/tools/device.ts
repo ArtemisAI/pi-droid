@@ -90,10 +90,15 @@ export function registerDeviceTools(pi: ExtensionAPI, adbConfig: Record<string, 
       confidence_threshold: Type.Optional(Type.Number({ description: "Minimum OCR confidence (0-100, default 50)" })),
     }),
     async execute(_id, args) {
-      const result = args.screenshot_path
-        ? await runOcrOnImage(args.screenshot_path, { confidenceThreshold: args.confidence_threshold })
-        : await runOcrOnCurrentScreen({ serial: defaultSerial, confidenceThreshold: args.confidence_threshold });
-      return { content: [{ type: "text", text: JSON.stringify(result) }], details: {} };
+      try {
+        const result = args.screenshot_path
+          ? await runOcrOnImage(args.screenshot_path, { confidenceThreshold: args.confidence_threshold })
+          : await runOcrOnCurrentScreen({ serial: defaultSerial, confidenceThreshold: args.confidence_threshold });
+        return { content: [{ type: "text", text: JSON.stringify(result) }], details: {} };
+      } catch (err) {
+        const msg = (err as Error).message;
+        return { content: [{ type: "text", text: JSON.stringify({ error: msg, suggestion: "Install Tesseract with: apt install tesseract-ocr" }) }], details: {} };
+      }
     },
   });
 

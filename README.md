@@ -43,7 +43,7 @@ Pi-Droid is a [pi-agent](https://github.com/badlogic/pi-mono) extension that giv
 | **ADB** on PATH | `adb devices` should list your device |
 | **Android device** | USB debugging enabled, USB or WiFi connected |
 | **[ADBKeyboard](https://github.com/senzhk/ADBKeyboard)** | Required for Unicode text input via `android_type` |
-| **Tesseract OCR** *(optional)* | Only needed for `android_ocr` tool |
+| **Tesseract OCR** *(optional)* | Enables `android_ocr` and OCR fallback in `android_look`. Without it, OCR is silently skipped — all other tools work normally. Install: `sudo apt install tesseract-ocr` |
 
 ---
 

@@ -15,7 +15,19 @@ const execAsync = promisify(execFile);
 const DEFAULT_OCR_CONFIDENCE = 50;
 const MISSING_TESSERACT_ERROR =
   "Tesseract is not installed. Install with: apt install tesseract-ocr";
-let tesseractChecked = false;
+let tesseractAvailable: boolean | null = null;
+
+/** Non-throwing check for Tesseract availability. Result is cached after first call. */
+export async function isTesseractAvailable(timeout = 30_000): Promise<boolean> {
+  if (tesseractAvailable !== null) return tesseractAvailable;
+  try {
+    await execAsync("tesseract", ["--version"], { timeout });
+    tesseractAvailable = true;
+  } catch {
+    tesseractAvailable = false;
+  }
+  return tesseractAvailable;
+}
 
 export interface OcrResult {
   source: "ocr";
@@ -97,14 +109,8 @@ export async function runOcrOnImage(
     options.confidenceThreshold ??
     Number.parseFloat(process.env.PI_DROID_OCR_CONFIDENCE ?? `${DEFAULT_OCR_CONFIDENCE}`);
 
-  if (!tesseractChecked) {
-    // Tesseract runs on the host machine (not via adb shell), so we use execFile.
-    try {
-      await execAsync("tesseract", ["--version"], { timeout: options.timeout ?? 30_000 });
-      tesseractChecked = true;
-    } catch {
-      throw new Error(MISSING_TESSERACT_ERROR);
-    }
+  if (!await isTesseractAvailable(options.timeout ?? 30_000)) {
+    throw new Error(MISSING_TESSERACT_ERROR);
   }
 
   const { stdout } = await execAsync(

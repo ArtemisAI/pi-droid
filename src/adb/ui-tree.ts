@@ -237,36 +237,40 @@ export async function dumpUiTree(
 
   const needsOcrFallback = elements.length === 0 || isMinimalUiDump(rawXml, elements, interactive);
   if (needsOcrFallback) {
-    const ocrResult = await runOcrOnCurrentScreen({
-      ...options,
-      confidenceThreshold: options.ocrConfidenceThreshold,
-    });
-    const ocrElements = ocrResult.elements.map((el, i) => ({ ...el, index: i }));
+    try {
+      const ocrResult = await runOcrOnCurrentScreen({
+        ...options,
+        confidenceThreshold: options.ocrConfidenceThreshold,
+      });
+      const ocrElements = ocrResult.elements.map((el, i) => ({ ...el, index: i }));
 
-    if (elements.length === 0) {
-      const ocrOnly: UITreeResult = {
-        elements: ocrElements,
-        interactive: getInteractiveElements(ocrElements),
+      if (elements.length === 0) {
+        const ocrOnly: UITreeResult = {
+          elements: ocrElements,
+          interactive: getInteractiveElements(ocrElements),
+          rawXml,
+          xmlPath: localXml,
+          foregroundPackage,
+          source: "ocr",
+        };
+        setCachedTree(ocrOnly);
+        return ocrOnly;
+      }
+
+      const mergedElements = mergeElements(elements, ocrElements);
+      const merged: UITreeResult = {
+        elements: mergedElements,
+        interactive: getInteractiveElements(mergedElements),
         rawXml,
         xmlPath: localXml,
         foregroundPackage,
-        source: "ocr",
+        source: "merged",
       };
-      setCachedTree(ocrOnly);
-      return ocrOnly;
+      setCachedTree(merged);
+      return merged;
+    } catch (ocrErr) {
+      console.warn("OCR fallback skipped (Tesseract not available):", (ocrErr as Error).message);
     }
-
-    const mergedElements = mergeElements(elements, ocrElements);
-    const merged: UITreeResult = {
-      elements: mergedElements,
-      interactive: getInteractiveElements(mergedElements),
-      rawXml,
-      xmlPath: localXml,
-      foregroundPackage,
-      source: "merged",
-    };
-    setCachedTree(merged);
-    return merged;
   }
 
   const result: UITreeResult = {
